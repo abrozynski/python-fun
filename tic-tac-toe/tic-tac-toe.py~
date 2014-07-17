@@ -1,0 +1,46 @@
+class TicTacToe(player, board):
+  
+
+  def __init__(self):
+    self.players[player(X),player(O)]
+
+
+  def takeTurn(self, current_player):
+
+   
+  def playGame(self):
+   gameBoard = board()
+   current_turn = 0
+   while gameOver == false:
+    self.current_player = players[current_turn]
+    self.takeTurn(self.current_player)
+    current_turn += 1
+
+
+  
+
+class player:
+  
+  def __init__(self, _symbol):
+   self.symbol = _symbol
+
+
+class board:
+
+  def __init__(self):
+    self.state = []
+    for i in range(0, 8):
+     state.append(' ')
+
+  def spaceFree(self, index):
+    if (state[index] == ' '):
+      return true
+    else
+      return false
+
+  def show(self)
+   print state[0] '|' state[1] '|' state[2]
+   print '---------'
+   print state[3] '|' state[4] '|' state[5]
+   print '---------'  
+   print state[6] '|' state[7] '|' state[8]
