@@ -49,8 +49,11 @@ class PokerHand:
 
 
   def show_hand(self):
+    card_strings = []
     for card in self.hand:
       print str(card)
+      card_strings.append(str(card))
+    return card_strings
 
   def set_hand(self, hand_string):
     self.hand =[]
@@ -71,19 +74,19 @@ class PokerHand:
 
     sorted_hand = sorted(self.hand, key=lambda card: card.rank)
     self.hand = sorted_hand
-    hand_ranks = []
+    self.hand_ranks = []
     for card in self.hand:
-      hand_ranks.append(card.rank)
+      self.hand_ranks.append(card.rank)
 
 
     rank_occurances = {}
     for card in self.hand:
       if card.number not in rank_occurances:
-        rank_occurances[card.number]= hand_ranks.count(card.rank)
+        rank_occurances[card.number]= self.hand_ranks.count(card.rank)
     print rank_occurances
     #straight flush
 
-    if ((self.check_flush() == True) and (self.check_straight(hand_ranks) == True)):
+    if ((self.check_flush() == True) and (self.check_straight() == True)):
       self.evaluation = 'straight flush'
       self.high_card = self.hand[4]
       self.kickers = None
@@ -93,7 +96,7 @@ class PokerHand:
       self.high_card = self.hand[4]
       self.kickers = None
 
-    elif self.check_straight(hand_ranks) == True:
+    elif self.check_straight() == True:
       self.evaluation = 'straight'
       self.high_card = self.hand[4]    
       self.kickers = None
@@ -104,7 +107,7 @@ class PokerHand:
        if rank_occurances[card.number] == 4:
          self.high_card = card
        else:
-         self.kickers = card
+         self.kickers = [card]
 
 
     elif (3 in rank_occurances.values() and 2 in rank_occurances.values()):
@@ -133,7 +136,7 @@ class PokerHand:
         if (rank_occurances[card.number] == 2 and card not in possible_high_cards):
           possible_high_cards.append(card)
         else:
-          self.kicker = card
+          self.kickers = [card]
       self.high_card = possible_high_cards[1]
 
     elif (2 in rank_occurances.values()):
@@ -169,8 +172,9 @@ class PokerHand:
 
 
 
-  def check_straight(self, hand_ranks):
-    if hand_ranks[4] == hand_ranks[0]+4:
+  def check_straight(self):
+
+    if (len(set(self.hand_ranks)) == 5 and (self.hand_ranks[4] == self.hand_ranks[0]+4)):
       return True
     else:
       return False
